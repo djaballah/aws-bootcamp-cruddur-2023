@@ -1,0 +1,21 @@
+{
+    "BudgetLimit": {
+        "Amount": "10",
+        "Unit": "USD"
+    },
+    "BudgetName": "Credit budget",
+    "BudgetType": "COST",
+    "CostTypes": {
+        "IncludeCredit": true,
+        "IncludeDiscount": false,
+        "IncludeOtherSubscription": false,
+        "IncludeRecurring": false,
+        "IncludeRefund": false,
+        "IncludeSubscription": false,
+        "IncludeSupport": false,
+        "IncludeTax": false,
+        "IncludeUpfront": false,
+        "UseBlended": false
+    },
+    "TimeUnit": "MONTHLY"
+}

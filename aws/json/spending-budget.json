@@ -1,0 +1,21 @@
+{
+    "BudgetLimit": {
+        "Amount": "10",
+        "Unit": "USD"
+    },
+    "BudgetName": "Spending budget",
+    "BudgetType": "COST",
+    "CostTypes": {
+        "IncludeCredit": false,
+        "IncludeDiscount": false,
+        "IncludeOtherSubscription": true,
+        "IncludeRecurring": true,
+        "IncludeRefund": false,
+        "IncludeSubscription": true,
+        "IncludeSupport": true,
+        "IncludeTax": true,
+        "IncludeUpfront": true,
+        "UseBlended": true
+    },
+    "TimeUnit": "MONTHLY"
+}
