@@ -1,0 +1,9 @@
+{
+    "Rule": "AWS-services-health-rule",
+    "Targets": [
+        {
+            "Id": "aws-services-health-event-bridge-target",
+            "Arn": "arn:aws:sns:eu-west-3:745258917926:health-alarm"
+        }
+    ]
+}

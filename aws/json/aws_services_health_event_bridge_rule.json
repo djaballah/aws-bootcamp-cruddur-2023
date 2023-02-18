@@ -1,0 +1,4 @@
+{
+    "Name": "AWS-services-health-rule",
+    "EventPattern" : "{\"source\": [\"aws.health\"]}"
+}
