@@ -62,12 +62,19 @@ Create t different budgets, one to track credit, and the other to track spending
 aws budgets create-budget \
     --account-id $AWS_ACCOUNT_ID \
     --budget file://aws/json/credit-budget.json \
-    --notifications-with-subscribers file://aws/json/budget-notification.json
+    --notifications-with-subscribers file://aws/json/budgets-notification.json
 ```
 
 ![Credit budget.png](week0_assets/Credit%20budget.png)
 
-2. **Spending budget**: A 10$ spending budget that sends an email alert to djaballah.djedid@outlook.com when the spending reaches 70% of 10$.
+2. **Spending budget**: A 10$ [spending budget](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/aws/json/spending-budget.json) that sends an email alert to djaballah.djedid@outlook.com when the spending reaches 70% of 10$. ([budgets-notification.json](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/aws/json/budgets-notification.json))
+
+```bash
+aws budgets create-budget \
+    --account-id $AWS_ACCOUNT_ID \
+    --budget file://aws/json/spending-budget.json \
+    --notifications-with-subscribers file://aws/json/budgets-notification.json
+```
 
 ![Spending budget.png](week0_assets/Spending%20budget.png)
 
