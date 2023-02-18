@@ -132,4 +132,8 @@ Here are the steps I followed:
     aws events put-targets --cli-input-json file://aws/json/aws_services_health_event_bridge_target.json
     ```
 
+Here is the result
+
+![Aws services health event bridge rule](week0_assets/Aws%20services%20health%20event%20bridge%20rule.png)
+
 
