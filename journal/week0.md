@@ -56,18 +56,18 @@ Create t different budgets, one to track credit, and the other to track spending
 
 ![Budgets list.png](week0_assets/Budgets%20list.png)
 
-1. **Credit budget**: A 10$ credit budget that sends an email alert to djaballah.djedid@outlook.com when the credit consumption reaches 70%.
+1. **Credit budget**: A 10$ [credit budget](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/aws/json/credit-budget.json) that sends an email alert to djaballah.djedid@outlook.com when the credit consumption reaches 70%. ([budgets-notification.json](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/aws/json/budgets-notification.json))
 
 ```bash
 aws budgets create-budget \
     --account-id $AWS_ACCOUNT_ID \
     --budget file://aws/json/credit-budget.json \
-    --notifications-with-subscribers file://aws/json/credit-budget-notification.json
+    --notifications-with-subscribers file://aws/json/budget-notification.json
 ```
 
 ![Credit budget.png](week0_assets/Credit%20budget.png)
 
-1. **Spending budget**: A 10$ spending budget that sends an email alert to djaballah.djedid@outlook.com when the spending reaches 70% of 10$.
+2. **Spending budget**: A 10$ spending budget that sends an email alert to djaballah.djedid@outlook.com when the spending reaches 70% of 10$.
 
 ![Spending budget.png](week0_assets/Spending%20budget.png)
 
@@ -83,15 +83,15 @@ Then, subscribe to that topic
 
 ```bash
 aws sns subscribe \
-		--topic-arn arn:aws:sns:eu-west-3:745258917926:billing-alarm \
+    --topic-arn arn:aws:sns:eu-west-3:745258917926:billing-alarm \
     --protocol email \
     --notification-endpoint djaballah.djedid@outlook.com
 ```
 
-and finally we create the alarm
+and finally we create the [alarm](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/aws/json/alarm_config.json)
 
 ```bash
-aws cloudwatch put-metric-alarm --cli-input-json file://alarm_config.jso
+aws cloudwatch put-metric-alarm --cli-input-json file://alarm_config.json
 ```
 
 ![Billing alarm.png](week0_assets/Billing%20alarm.png)
@@ -120,13 +120,13 @@ Here are the steps I followed:
             --notification-endpoint djaballah.djedid@outlook.com
     ```
 
-3. Create a rule with an aws health pattern to capture health events from all services
+3. Create a rule with an aws health pattern to capture health events from all services ([aws_services_health_event_bridge_rule.json](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/aws/json/aws_services_health_event_bridge_rule.json))
 
     ```
     aws events put-rule --cli-input-json file://aws/json/aws_services_health_event_bridge_rule.json
     ```
 
-4. Assign the sns topic **health-alarm** as a target to the **AWS-services-health-rule** event bridge rule 
+4. Assign the sns topic **health-alarm** as a target to the **AWS-services-health-rule** event bridge rule  ([aws_services_health_event_bridge_target.json](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/aws/json/aws_services_health_event_bridge_target.json)) 
 
     ```
     aws events put-targets --cli-input-json file://aws/json/aws_services_health_event_bridge_target.json
