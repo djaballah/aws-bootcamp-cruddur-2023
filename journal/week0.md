@@ -95,3 +95,41 @@ aws cloudwatch put-metric-alarm --cli-input-json file://alarm_config.jso
 ```
 
 ![Billing alarm.png](week0_assets/Billing%20alarm.png)
+
+## Homework challenges
+
+In this section, I'll list the homework challenges that I implemented.
+
+### Event Bridge
+
+In this homework, I used event bridge with sns to send a notification email when an aws health event occur in aws bridge event.
+Here are the steps I followed:
+
+1. Create an sns topic
+
+    ```
+    aws sns create-topic --name health-alarm 
+    ```
+
+2. Subscribe to the previously created sns topic
+
+    ```
+    aws sns subscribe \
+            --topic-arn arn:aws:sns:eu-west-3:745258917926:health-alarm \
+            --protocol email \
+            --notification-endpoint djaballah.djedid@outlook.com
+    ```
+
+3. Create a rule with an aws health pattern to capture health events from all services
+
+    ```
+    aws events put-rule --cli-input-json file://aws/json/aws_services_health_event_bridge_rule.json
+    ```
+
+4. Assign the sns topic **health-alarm** as a target to the **AWS-services-health-rule** event bridge rule 
+
+    ```
+    aws events put-targets --cli-input-json file://aws/json/aws_services_health_event_bridge_target.json
+    ```
+
+
