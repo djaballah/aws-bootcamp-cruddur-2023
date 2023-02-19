@@ -29,4 +29,12 @@ the notifications in the frontend. I implemented this in the following steps:
 
 And here is screenshot of the notifications page
 
-![Cruddur - screenshot](week1_assets/Notifications%20page.png)
+![Notification page](week1_assets/Notifications%20page.png)
+
+## Creating DynamoDB local && PostgreSql docker images.
+
+Add the configuration for DynamoDB local && PostgreSql docker images to the project docker compose file. ([Commit](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/575ec0838b68ddb89d8ae61e4c0b2134f4c8d370)).
+
+And check that the their docker containers are correctly set up and running.
+![Dynamodb local docker screenshot](week1_assets/Dynamodb%20local%20docker%20screenshot.png)
+![Postgres docker screenshot.png](week1_assets/Postgres%20docker%20screenshot.png)
