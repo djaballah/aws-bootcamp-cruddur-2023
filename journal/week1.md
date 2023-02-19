@@ -38,3 +38,41 @@ Add the configuration for DynamoDB local && PostgreSql docker images to the proj
 And check that the their docker containers are correctly set up and running.
 ![Dynamodb local docker screenshot](week1_assets/Dynamodb%20local%20docker%20screenshot.png)
 ![Postgres docker screenshot.png](week1_assets/Postgres%20docker%20screenshot.png)
+
+## Run the dockerfile CMD as an external script
+
+CMD can be used to run external script. I did this by creating two shell scripts that are going to be used with CMD to start the backend and frontend applications.
+
+- Backend start_script.sh
+
+```bash
+#!/bin/bash
+
+python3 -m flask run --host=0.0.0.0 --port=4567
+```
+
+- Frontend start_script.sh
+
+```bash
+#!/bin/bash
+
+npm start
+```
+
+The backend and frontend Docker files have been updated accordingly to run those scripts
+
+- Backend Dockerfile
+
+```
+CMD ["/backend-flask/start_script.sh"]
+```
+
+- Frontend Dockerfile
+
+```
+CMD ["/frontend-react-js/start_script.sh"]
+```
+
+This was implemented in these two commits:
+- [Commit 1](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/dba887f007f4cecb25db2161ea3debe4effa588b)
+- [Commit 2](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/1635319c6041334dc38d9454a90d891817812bea)
