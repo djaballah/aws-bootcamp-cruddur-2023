@@ -8,4 +8,4 @@ WORKDIR /frontend-react-js
 
 RUN npm install
 EXPOSE ${PORT}
-CMD "/frontend-react-js/start_script.sh"
+CMD ["/frontend-react-js/start_script.sh"]

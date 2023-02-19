@@ -10,4 +10,4 @@ COPY . .
 ENV FLASK_ENV=development
 
 EXPOSE ${PORT}
-CMD "/backend-flask/start_script.sh"
+CMD ["/backend-flask/start_script.sh"]
