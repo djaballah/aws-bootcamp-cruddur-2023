@@ -76,3 +76,36 @@ CMD ["/frontend-react-js/start_script.sh"]
 This was implemented in these two commits:
 - [Commit 1](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/dba887f007f4cecb25db2161ea3debe4effa588b)
 - [Commit 2](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/1635319c6041334dc38d9454a90d891817812bea)
+
+## Push and tag an image to DockerHub
+
+In this challenge, it was requested to push and tag an image to DockerHub, I achived this through the following steps:
+
+1. Login to my DockerHub account
+2. Create a repository name **free-aws-cloud-project-bootcamp**
+3. Build the backend docker image and tag it with **djaballah/free-aws-cloud-project-bootcamp:backend-image-dev**
+    ```bash
+    docker build -t djaballah/free-aws-cloud-project-bootcamp:backend-image-dev ./backend-flask
+    ```
+4. Push the backend docker image to dockerHub
+    ```bash
+    docker push djaballah/free-aws-cloud-project-bootcamp:backend-image-dev
+    ````
+5. Build the frontend docker image and tag it with **djaballah/free-aws-cloud-project-bootcamp:frontend-image-dev**
+    ```bash
+    docker build -t djaballah/free-aws-cloud-project-bootcamp:frontend-image-dev ./frontend-react-js/
+    ```
+6. Push the frontend docker image to dockerHub
+    ```bash
+    docker push djaballah/free-aws-cloud-project-bootcamp:frontend-image-dev
+    ```
+At first when I tried to push the backend image after I build it, I had a permission denied error
+```bash
+denied: requested access to the resource is denied
+```
+This is because, in order to push we need to login to our dockerhub through the cli, I did it this way
+```bash
+docker login -u {DOCKER_HUB_USERNAME} -p {DOCKER_HUB_PASSWORD}
+```
+
+You can find the docker images in my [docker hub repository](https://hub.docker.com/repository/docker/djaballah/free-aws-cloud-project-bootcamp/general).
