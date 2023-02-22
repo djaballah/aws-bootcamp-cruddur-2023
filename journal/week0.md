@@ -143,4 +143,38 @@ Here is the result
 
 ![Aws services health event bridge rule](week0_assets/Aws%20services%20health%20event%20bridge%20rule.png)
 
+## Healthcheck in the V3 Docker compose file
 
+Healtch check is a way for a docker compose service to set it's health status and indicate to other docker services wheter it's healthy or not. In this challenge we are going to implement a health check for the backend service, this was done in two steps:
+1. Implement a healtch check endpoint in the backend service, that always return the http status code 200 when the app is running:
+    ```
+    @app.route("/healthy", methods=['GET'])
+    def health_check():
+      return {}, 200
+    ```
+2. Implement healthcheck in the backend service in the docker compose file:
+    ```
+    healthcheck:
+      test: curl --fail http://localhost:4567/healthy
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    ```
+
+What this is basically doing, is that when the backend service start, the command
+```
+curl --fail http://localhost:4567/healthy
+```
+will be regularely executed (every 10s), if this command succeed and return an exist code equal to 0 within 3 seconds the docker container will be considered as healthy, if the command failed for 3 consecutive times the docker will be in an unhealthy state.
+</br>
+What this healthcheck will allows to do, is to set a deterministic booting order for our services. So we can make the frontend service only start when the backend service is in a healthy state, this can be done with the docker compose **depends_on** which was implemented this way in the docker compose frontend service:
+```
+depends_on:
+  backend-flask:
+    condition: service_healthy
+```
+
+This challenge was implemented in these two commits:
+- [Commit 1](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/a191855e0d33aaa7c517edbf1e1338dd0d5e2c67)
+- [Commit 2](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/28d923ae9d9f17bf56402249efb3baf1640b322e)
