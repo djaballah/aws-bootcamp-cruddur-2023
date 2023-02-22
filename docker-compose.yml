@@ -9,20 +9,23 @@ services:
       - "4567:4567"
     volumes:
       - ./backend-flask:/backend-flask
+    healthcheck:
+      test: curl --fail http://localhost:4567/healthy
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
-    healthcheck:
-      test: curl --fail https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/healthy
-      interval: 5s
-      timeout: 3s
-      retries: 3
-      start_period: 30s
     volumes:
       - ./frontend-react-js:/frontend-react-js
+    depends_on:
+      backend-flask:
+        condition: service_healthy
   db:
     image: postgres:13-alpine
     restart: always
