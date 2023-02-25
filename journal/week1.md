@@ -112,7 +112,7 @@ You can find the docker images in my [docker hub repository](https://hub.docker.
 
 ## Implement Dockerfile best practices
 
-In this challenge I'll try to implement some best practices from the [official Dockerfile best pacices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/).
+In this challenge I'll try to implement some best practices from the [official Dockerfile best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/).
 
 1. .dockerignore
 
@@ -135,3 +135,17 @@ In this challenge I'll try to implement some best practices from the [official D
     This challenge is implemented in this two commits:
     - [Commit 1](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/6cc46b6dc454c3b3b88598ac0a2924d492bf464f)
     - [Commit 2](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/9bd8099754c57f9104f8d9e6592ba921afd44b3b)
+
+2. Minimize the number of layers
+
+    The instructions `RUN`, `COPY` and `ADD` create layers which can increase the size of the final image. We can
+    apply some best practices to minimize created layers, such as combining multiple RUN and COPY instructions
+    when possible.
+    </br>
+    I'll try to apply these best practices in the backend Dockefile.
+    1. Remove the `COPY requirements.txt requirements.txt` instruction, and move the command `COPY . .` before
+       installing the requiremnts, since requirements.txt will also be be copied with this instruction.
+    2. Combine the two `RUN` commands into one command.
+
+    This was implemented in this [commit](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/e2788c02bda9573d5767c3985374739046bef479)
+    
