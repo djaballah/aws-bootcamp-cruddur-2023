@@ -1,13 +1,10 @@
 FROM python:3.10-slim-buster
 
 WORKDIR /backend-flask
-
-RUN apt-get -y update; apt-get -y install curl
-
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-
 COPY . .
+
+RUN apt-get -y update; apt-get -y install curl \
+ && pip3 install -r requirements.txt
 
 ENV FLASK_ENV=development
 
