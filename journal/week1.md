@@ -109,3 +109,29 @@ docker login -u {DOCKER_HUB_USERNAME} -p {DOCKER_HUB_PASSWORD}
 ```
 
 You can find the docker images in my [docker hub repository](https://hub.docker.com/repository/docker/djaballah/free-aws-cloud-project-bootcamp/general).
+
+## Implement Dockerfile best practices
+
+In this challenge I'll try to implement some best practices from the [official Dockerfile best pacices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/).
+
+1. .dockerignore
+
+    When building a docker image, docker will take all the files in the directory used for the build and use them as
+    the build context. But many times, some of those files are not required for building the image which will result
+    in a more build time and an unnecessary larger docker images.
+    </br>
+    To solve this, we can use `.dockerignore`, that is a file we can create in the same directory as the one we 
+    are using for building the images, and put in it some ignore rules to exclude irrelevant files from the build
+    context.
+    </br>
+    </br>
+    To build our backend image, the files `.gitignore, .dockerignore, .env.example, openapi-3.0.yml, README.md` are not needed,
+    thus they will be excluded with the `.dockerignore`
+    </br>
+    To build our frontend image, the files `.gitignore, .dockerignore, .env.example, README.md` are not needed,
+    thus they will be excluded with the `.dockerignore`.
+    </br>
+    </br>
+    This challenge is implemented in this two commits:
+    - [Commit 1](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/6cc46b6dc454c3b3b88598ac0a2924d492bf464f)
+    - [Commit 2](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/9bd8099754c57f9104f8d9e6592ba921afd44b3b)
