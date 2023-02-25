@@ -149,3 +149,28 @@ In this challenge I'll try to implement some best practices from the [official D
 
     This was implemented in this [commit](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/e2788c02bda9573d5767c3985374739046bef479)
     
+## Install docker and run the app in my local machine
+
+In this challenge I tried to install docker and run the containers in my local machine. I was able to achieve this throught the following steps:
+1. Installing the docker in my local machine following the instruction from the offcial docker website [Installation tutorial](https://docs.docker.com/engine/install/ubuntu/)
+2. Clone my aws-bootcamp-cruddur-2023 repository
+    ```bash
+    git clone https://github.com/djaballah/aws-bootcamp-cruddur-2023.git
+    ```
+3. Update the environment variable in the docker compose file
+    ```
+      backend-flask:
+        environment:
+          FRONTEND_URL: http://localhost:3000 
+          BACKEND_URL: http://localhost:4567
+      frontend-react-js:
+        environment:
+          REACT_APP_BACKEND_URL: http://localhost:4567
+    ```
+4. Then run the containers
+    ```
+    sudo docker compose up
+    ``` 
+And I had the application running smoothly
+![Crudder running locally](https://github.com/djaballah/aws-bootcamp-cruddur-2023/blob/main/journal/week1_assets/Local%20crudder.png)
+    
