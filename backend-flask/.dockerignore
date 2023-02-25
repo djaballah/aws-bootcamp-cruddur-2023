@@ -2,3 +2,4 @@
 .env.example
 *.md
 openapi-3.0.yml
+.gitignore
