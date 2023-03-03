@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
+import requests
 
 from services.home_activities import *
 from services.notifications_activities import *
@@ -210,6 +211,23 @@ def health_check():
 def rollbar_test():
     rollbar.report_message('Hello World! from Djaballah', 'warning')
     return "Hello World!"
+
+@app.route("/honeycomb/traces", methods=['POST','OPTIONS'])
+@cross_origin(supports_credentials=True)
+def collect_traces():
+  otlp_json_exported_from_frontend = request.json
+  headers = {
+    'Content-Type': 'application/json',
+    'x-honeycomb-team': os.getenv('HONEYCOMB_API_KEY'),
+  }
+
+  response = requests.post(
+    url=os.getenv('HONEYCOMB_TRACES_API'),
+    json=otlp_json_exported_from_frontend,
+    headers=headers
+  )
+
+  return {'success': True}, 200
 
 if __name__ == "__main__":
   app.run(debug=True)
