@@ -162,3 +162,8 @@ See:
 - [commit 2](https://github.com/djaballah/aws-bootcamp-cruddur-2023/commit/0112d4cd7984099315dbddd4b13d0db6d5ea8702)
 
 ![Frontend traces screenshot](week2_assets/Honeycomb%20frontend%20traces.png)
+
+## Create a custom Honeycomb graph query
+
+In this challenge I created a query to get the most requested endpoints
+![Most requested endpoints](week2_assets/Most%20requested%20endpoints.png)
