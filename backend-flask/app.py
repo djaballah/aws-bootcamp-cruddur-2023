@@ -66,8 +66,8 @@ app = Flask(__name__)
 
 # Initialize automatic instrumentation with Flask
 # Honeycomb
-FlaskInstrumentor().instrument_app(app)
-RequestsInstrumentor().instrument()
+FlaskInstrumentor().instrument_app(app, excluded_urls='.*/healthy,/honeycomb/traces')
+RequestsInstrumentor().instrument(excluded_urls=os.getenv('HONEYCOMB_TRACES_API'))
 
 # X-ray
 XRayMiddleware(app, xray_recorder)
