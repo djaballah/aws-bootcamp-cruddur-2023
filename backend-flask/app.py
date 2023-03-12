@@ -14,7 +14,7 @@ from services.message_groups import *
 from services.messages import *
 from services.create_message import *
 from services.show_activity import *
-from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
+from middlewares.cognito_jwt_middleware import CognitoJwtMiddleware
 
 
 # Honeycomb
@@ -63,14 +63,8 @@ LOGGER.addHandler(console_handler)
 LOGGER.addHandler(cw_handler)
 LOGGER.info("Starting backend-flask")
 
-# Cognito jwt
-cognito_jwt_token = CognitoJwtToken(
-  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"),
-  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
-  region=os.getenv("AWS_DEFAULT_REGION")
-)
-
 app = Flask(__name__)
+app.wsgi_app = CognitoJwtMiddleware(app.wsgi_app)
 
 
 # Initialize automatic instrumentation with Flask
@@ -156,16 +150,8 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 def data_home():
-  access_token = extract_access_token(request.headers)
-  try:
-    claims = cognito_jwt_token.verify(access_token)
-    # authenicatied request
-    app.logger.debug("authenicated")
-    data = HomeActivities.run(LOGGER, cognito_user_id=claims['username'])
-  except TokenVerifyError as e:
-    # unauthenicatied request
-    app.logger.debug("unauthenicated")
-    data = HomeActivities.run(LOGGER)
+  user = request.environ.get('username', None)
+  data = HomeActivities.run(LOGGER, cognito_user_id=user)
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
