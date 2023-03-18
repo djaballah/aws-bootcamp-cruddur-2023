@@ -1,0 +1,21 @@
+{
+    "name": "cognito-jwt-sidecar",
+    "version": "1.0.0",
+    "description": "A sidecar proxy for cognito jwt token verification",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node index.js"
+    },
+    "author": "Djedid Djaballah Mohammed",
+    "license": "ISC",
+    "dependencies": {
+      "aws-jwt-verify": "^3.4.0",
+      "cors": "^2.8.5",
+      "express": "^4.18.2",
+      "http-proxy-middleware": "^2.0.6",
+      "morgan": "^1.10.0"
+    }
+  }
+  

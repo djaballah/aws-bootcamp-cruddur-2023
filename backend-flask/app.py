@@ -64,7 +64,7 @@ LOGGER.addHandler(cw_handler)
 LOGGER.info("Starting backend-flask")
 
 app = Flask(__name__)
-app.wsgi_app = CognitoJwtMiddleware(app.wsgi_app)
+# app.wsgi_app = CognitoJwtMiddleware(app.wsgi_app)
 
 
 # Initialize automatic instrumentation with Flask
@@ -96,7 +96,8 @@ def init_rollbar():
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
-origins = [frontend, backend]
+sidecar = os.getenv('SIDECAR_URL')
+origins = [frontend, backend, sidecar]
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
@@ -150,7 +151,9 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 def data_home():
-  user = request.environ.get('username', None)
+  # user = request.environ.get('Username', None)
+  user = request.headers.get('Username', None)
+  app.logger.debug(request.headers.get('Username', None))
   data = HomeActivities.run(LOGGER, cognito_user_id=user)
   return data, 200
 
